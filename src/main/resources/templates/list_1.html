@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-6 no-padding">
+                <form class="form-inline" action="#" th:action="@{/flight/search}" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search ..." />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-6 no-padding">
+                <a href="#" th:href="@{/flight/add}" class="btn btn-success float-right">
+                    <i class="fa fa-plus-square"></i> New Flight
+                </a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <th:block th:if="${#lists.isEmpty(flights)}">
+                <h5>No Data</h5>
+            </th:block>
+
+            <th:block th:unless="${#lists.isEmpty(flights)}">
+                <div class="table-responsive">
+                    <h5>List of flight</h5>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID Flight</th>
+                            <th>Name Departure</th>
+                            <th>Name Arrival</th>
+                            <th>Date-Time Departure</th>
+                            <th>Date-Time Arrival</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="flight,iterStat : ${flights}">
+                            <th scope="row" th:text="${iterStat.count}"></th>
+                            <td th:text="${flight.getId()}"></td>
+                            <td th:text="${flight.getId_departure().getName_location()}"></td>
+                            <td th:text="${flight.getId_arrival().getName_location()}"></td>
+                            <td th:text="${flight.datetime_departure}"></td>
+                            <td th:text="${flight.datetime_arrival}"></td>
+                            <td th:text="${flight.price}"></td>
+                            <td>
+                                <a href="#" th:href="@{/flight/{id}/edit(id=${flight.id})}" class="mr-sm-2 text-primary"><i class="fa fa-pencil"></i></a>
+                                <a href="#" th:href="@{/flight/{id}/delete(id=${flight.id})}" class="text-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </th:block>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+
+</body>
+</html>
