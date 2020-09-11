@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container" id="main-content">
+      <form style="min-width: 300px;" action="#" th:action="@{/list}" method="post" th:object="${flights}" novalidate="novalidate">
+          <h4 class="text-center">Search Form</h4>
+          <input type="hidden" th:field="*{id}" /><br/>
+        <label>FROM</label>
+        <input type="text" th:field="*{id_departure}" /><br/>
+ 
+        <label>TO</label>
+        <input type="text" th:field="*{id_arrrival}" /><br/>
+ 
+        <label>Departure</label>
+        <input type="datetime-local" th:field="*{datetim_departure}" required>
+ 
+        <label>Arrival</label>
+        <input type="datetime-local" th:field="*{datetime_arrival}" required>
+ 
+        <label>Type</label>
+        <input type="radio" th:field="*{gender}" value="Male" />One Way
+        <input type="radio" th:field="*{gender}" value="Female" />Round Trip<br/>
+ 
+        <br/>
+        <label>Children</label>
+        <input type="number" class="form-control" th:field="*{numberField}" placeholder="Children" />
+        <label>Adult</label>
+        <input type="number" class="form-control" th:field="*{numberField}" placeholder="Adult" />
+        <label>Senior</label>
+        <input type="number" class="form-control" th:field="*{numberField}" placeholder="Senior" />
+ 
+        <button type="submit">Search</button>
+        
+    </div>
+
+    <footer th:replace="layout :: footer"></footer>
+
+</body>
+</html>

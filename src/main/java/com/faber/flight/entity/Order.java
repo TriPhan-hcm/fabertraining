@@ -5,6 +5,7 @@
  */
 package com.faber.flight.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,15 +35,24 @@ public class Order {
     private Long id;
     
     @Column(name="datetime")
-    private Date datetime;
+    private LocalDateTime datetime;
     
-    @Column(name = "typeFlight")
+    @Column(name = "type_flight")
     @Enumerated(EnumType.STRING)
-    private TypeFlight typeFlight;
+    private TypeFlight type_flight;
     //many
     @ManyToOne
     @JoinColumn(name="id_flight", nullable = false)
     private Flight flight;
+    
+    @Column(name="total_person", nullable = false)
+    private Integer total_person;
+    
+    @Column(name="price_person", nullable = false)
+    private double price_person;
+    
+    @Column(name = "total_price")
+    private Double total_price;
 
     public Order() {
     }
@@ -55,20 +65,44 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 
-    public TypeFlight getTypeFlight() {
-        return typeFlight;
+    public TypeFlight getType_flight() {
+        return type_flight;
     }
 
-    public void setTypeFlight(TypeFlight typeFlight) {
-        this.typeFlight = typeFlight;
+    public void setType_flight(TypeFlight type_flight) {
+        this.type_flight = type_flight;
+    }
+
+    public Integer getTotal_person() {
+        return total_person;
+    }
+
+    public void setTotal_person(Integer total_person) {
+        this.total_person = total_person;
+    }
+
+    public double getPrice_person() {
+        return price_person;
+    }
+
+    public void setPrice_person(double price_person) {
+        this.price_person = price_person;
+    }
+
+    public Double getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(Double total_price) {
+        this.total_price = total_price;
     }
 
     public Flight getFlight() {

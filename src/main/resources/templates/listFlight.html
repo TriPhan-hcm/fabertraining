@@ -14,12 +14,9 @@ and open the template in the editor.
     <div class="container" id="main-content">
         <div class="row">
             <div class="col-6 no-padding">
-                <form class="form-inline" action="#" th:action="@{/flight/search}" method="get">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search ..." />
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fa fa-search"></i> Search
-                    </button>
-                </form>
+                <a href="#" th:href="@{/search}" class="btn btn-success float-left">
+                    <i class="fa fa-search"></i> Search
+                </a>
             </div>
 
             <div class="col-6 no-padding">
@@ -30,6 +27,12 @@ and open the template in the editor.
         </div>
 
         <div class="row mt-4">
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <th:block th:if="${#lists.isEmpty(flights)}">
                 <h5>No Data</h5>
             </th:block>

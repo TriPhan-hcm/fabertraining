@@ -6,9 +6,15 @@
 package com.faber.flight.controller;
 
 import com.faber.flight.entity.Flight;
+import com.faber.flight.entity.Location;
+import com.faber.flight.entity.Order;
+import com.faber.flight.entity.TypeFlight;
 import com.faber.flight.service.FlightService;
 import com.faber.flight.service.LocationService;
 import com.faber.flight.service.OrderService;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +41,10 @@ public class FlightController {
     @Autowired
     private LocationService locationService;
     
-    @GetMapping("/")
-    public String searchFilght(){
-        
+    @GetMapping("/search")
+    public String listData(Model model){
+        model.addAttribute("orders", orderService.findOne(Long.MIN_VALUE));
+        model.addAttribute("flights", flightService.findOne(Long.MIN_VALUE));
         return "search";
     }
     
@@ -45,27 +52,46 @@ public class FlightController {
     public String listFlight(Model model){
         model.addAttribute("flights", flightService.findAll());
         model.addAttribute("locations", locationService.findAll());
-        return "list_1";
+        return "listFlight";
     }
     @GetMapping("/flight/add")
     public String add(Model model){
         model.addAttribute("flight",new Flight());
-        return "add";
+        model.addAttribute("location", new Location());
+        return "form";
     }
     @PostMapping("/flight/save")
-    public String save(@Valid Flight flight, BindingResult result, RedirectAttributes redirect) {
-    flightService.save(flight);
-    return "redirect:/flight";
+    public String save(Flight flight, BindingResult result, RedirectAttributes redirect) {
+        if(result.hasErrors()){
+            return "form";
+        } 
+        flightService.save(flight);
+        redirect.addFlashAttribute("successMessage","Saved Successfully");
+        return "redirect:/flight";
     }
     
     @GetMapping("/flight/{id}/edit")
-    public String edit(@PathVariable("id")Long id, Model model){
-        model.addAttribute("", id);
-        return "add";
+    public String edit(@PathVariable("id")Long id
+            
+            , Model model){
+        
+        model.addAttribute("flight", flightService.findOne(id));
+        return "form";
     }
-    @GetMapping("/order")
+    @GetMapping("/flight/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes redirect){
+        flightService.delete(id);
+        redirect.addFlashAttribute("successMessage","Deleted Successfully");
+        return "redirect:/flight";
+    }
+    
+    @GetMapping("/orderList")
     public String listOrder(Model model){
         model.addAttribute("orders", orderService.findAll());
-        return "list";
+        return "listOrder";
+    }
+    public Set<TypeFlight> initType(){
+        Set<TypeFlight> set = new HashSet<TypeFlight>();
+        return set;
     }
 }

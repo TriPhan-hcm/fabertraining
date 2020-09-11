@@ -5,6 +5,7 @@
  */
 package com.faber.flight.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  *
@@ -31,19 +35,23 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    
     @OneToOne
     @JoinColumn(name ="id_departure", nullable = false)
     private Location id_departure;
+    
     
     @OneToOne
     @JoinColumn(name ="id_arrival", nullable = false)
     private Location id_arrival;
     
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "datetime_departure")
-    private Date datetime_departure;
+    private LocalDateTime datetime_departure;
     
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "datetime_arrival")
-    private Date datetime_arrival;
+    private LocalDateTime datetime_arrival;
     
     @Column(name="price")
     private double price;
@@ -78,19 +86,19 @@ public class Flight {
         this.id_arrival = id_arrival;
     }
 
-    public Date getDatetime_departure() {
+    public LocalDateTime getDatetime_departure() {
         return datetime_departure;
     }
 
-    public void setDatetime_departure(Date datetime_departure) {
+    public void setDatetime_departure(LocalDateTime datetime_departure) {
         this.datetime_departure = datetime_departure;
     }
 
-    public Date getDatetime_arrival() {
+    public LocalDateTime getDatetime_arrival() {
         return datetime_arrival;
     }
 
-    public void setDatetime_arrival(Date datetime_arrival) {
+    public void setDatetime_arrival(LocalDateTime datetime_arrival) {
         this.datetime_arrival = datetime_arrival;
     }
 

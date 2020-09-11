@@ -13,42 +13,39 @@
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 
     <link type="text/css" rel="stylesheet" href="css/style.css" th:href="@{/css/style.css}" />
-
-
-
+    
 </head>
 
 <body>
-    <div id="booking" class="section">
+     <div id="booking" class="section" >
         <div class="section-center">
             <div class="container">
                 <div class="row">
                     <div class="booking-form">
-                        <form>
+                        
+                        <form action="#" th:action="@{/orderList}" th:object="${orders}" method="post" novalidate="novalidate">
+                            <input type="hidden" th:field="*{id}"/>
                             <div class="form-group">
-                                <div class="form-checkbox">
-                                    <label for="roundtrip">
-										<input type="radio" id="roundtrip" name="flight-type">
-										<span></span>Roundtrip
-									</label>
-                                    <label for="one-way">
-										<input type="radio" id="one-way" name="flight-type">
-										<span></span>One way
-									</label>
-
+                               <div class="form-checkbox">
+                                    <label for="roundtrip">Select Type Flight</label>
+                                   
+                                    <select class="form-control" th:field="*{type_flight}">
+                                        <option th:each="type : ${T(com.faber.flight.entity.TypeFlight).values()}"
+                                                th:value="${type}" th:text="${type}"></option>
+                                    </select>   
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">From</span>
-                                        <input class="form-control" type="text" placeholder="City or airport">
+                                        <input class="form-control" type="text" placeholder="City or airport" th:field="*{flight.getId_departure().getName_location()}" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">To</span>
-                                        <input class="form-control" type="text" placeholder="City or airport">
+                                        <input class="form-control" type="text" placeholder="City or airport" th:field="*{flight.getId_arrival().getName_location()}">
                                     </div>
                                 </div>
                             </div>
@@ -56,54 +53,41 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span class="form-label">Departing</span>
-                                        <input class="form-control" type="datetime-local" required>
+                                        <input class="form-control" type="date" th:field="*{flight.getDatetime_departure()}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span class="form-label">Returning</span>
-                                        <input class="form-control" type="datetime-local" required>
+                                        <input class="form-control" type="date" th:field="*{flight.getDatetime_arrival()}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <span class="form-label">Adults (18+)</span>
-                                        <select class="form-control">
-											<option>0</option>
-											<option>2</option>
-											<option>3</option>
-										</select>
-                                        <span class="select-arrow"></span>
+                                        <input type="number" class="form-control" id="adultNumber" placeholder="Adult" />
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <span class="form-label">Children (0-17)</span>
-                                        <select class="form-control">
-											<option>0</option>
-											<option>1</option>
-											<option>2</option>
-										</select>
+                                        <input type="number" class="form-control" id="childNumber" placeholder="Adult" />
                                         <span class="select-arrow"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <span class="form-label">Senior (+65)</span>
-                                        <select class="form-control">
-											<option>0</option>
-											<option>1</option>
-											<option>2</option>
-										</select>
+                                        <input type="number" class="form-control" id="seniorNumber" placeholder="Adult" />
                                         <span class="select-arrow"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                              
                                 <div class="col-md-3">
                                     <div class="form-btn">
-                                        <button class="submit-btn">Search</button>
+                                        <button class="submit-btn" onclick="sumPerson()">Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +97,7 @@
             </div>
         </div>
     </div>
+   <script src="../static/js/index.js" th:src="@{/js/index.js}" rel="text/javascript"/>
 </body>
 
 

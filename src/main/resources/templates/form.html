@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container" id="main-content">
+        <form style="min-width: 300px;" action ="#" th:action="@{/flight/save}" th:object="${flight}" method="post" novalidate="novalidate">
+            <h4 class="text-center">Flight Details</h4>
+            <input type="hidden" th:field="*{id}"/>
+            
+            <div class="form-group">
+                <input class ="form-control" type="text" placeholder="ID Departure" th:field="*{id_departure.id}"/>
+                
+            </div>
+            <div class="form-group">
+                <input class ="form-control" type="text" placeholder="ID Arraval" th:field="*{id_arrival.id}" />
+                
+            </div>
+            <div class="form-group">
+                <input class ="form-control" type="datetime-local" placeholder="DateTime Departure" th:field="*{datetime_departure}"  />
+               
+            </div>
+            <div class="form-group">
+                <input class ="form-control" type="datetime-local" placeholder="DateTime Arrival" th:field="*{datetime_arrival}"  />
+                
+            </div>
+            <div class="form-group">
+                <input class ="form-control" type="text" placeholder="Price" th:field="*{price}" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+    </div>
+        </form>
+
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+
+</body>
+</html>

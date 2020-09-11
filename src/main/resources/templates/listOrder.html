@@ -30,11 +30,11 @@ and open the template in the editor.
         </div>
 
         <div class="row mt-4">
-            <th:block th:if="${#lists.isEmpty(contacts)}">
-                <h5>No contacts</h5>
+            <th:block th:if="${#lists.isEmpty(orders)}">
+                <h5>No Data</h5>
             </th:block>
 
-            <th:block th:unless="${#lists.isEmpty(contacts)}">
+            <th:block th:unless="${#lists.isEmpty(orders)}">
                 <div class="table-responsive">
                     <h5>List of order</h5>
                     <table class="table table-bordered table-hover">
@@ -49,15 +49,23 @@ and open the template in the editor.
                             <th>Location: Arrival</th>
                             <th>Time: Arrival</th>
                             <th>Total Person</th>
+                            <th>Person Price</th>
                             <th>Total Price</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="contact,iterStat : ${contacts}">
+                        <tr th:each="order,iterStat : ${orders}">
                             <th scope="row" th:text="${iterStat.count}"></th>
-                            <td th:text="${contact.name}"></td>
-                            <td th:text="${contact.email}"></td>
-                            <td th:text="${contact.phone}"></td>
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.datetime}"></td>
+                            <td th:text="${order.getFlight().getId()}"></td>
+                            <td th:text="${order.getFlight().getDatetime_departure()}"></td>
+                            <td th:text="${order.getFlight().getId()}"></td>
+                            <td th:text="${order.getFlight().getDatetime_arrival()}"></td>
+                            <td th:text="${order.typeFlight}"></td>
+                           <td th:text="${order.total_person}"></td>
+                           <td th:text="${order.price_person}"></td>
+                            <td th:text="${order.total_price}"></td>
                             <td>
                                 <a href="#" class="mr-sm-2 text-primary"><i class="fa fa-pencil"></i></a>
                                 <a href="#" class="text-danger"><i class="fa fa-trash"></i></a>
